@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*path is relative to node_modules folder.*/
+
+@import "~bootstrap/dist/css/bootstrap.css"; 
+
+body{
+	padding-top: 80px;
+}

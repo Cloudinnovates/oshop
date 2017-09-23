@@ -1,0 +1,97 @@
+<!--  Bootstrap form for adding new products -->
+
+<div class="row">
+
+ <!-- Left partition of page holds the form -->
+ <div class="col-md-6">
+		
+		<!-- f is a template variable and set it to ngForm directive -->
+		<!-- f.value holds json representation of this form  -->
+		<form #f="ngForm" (ngSubmit)="save(f.value)">
+
+			<!-- Title Field Begin -->
+			<div class="form-group">
+				<label for="title">Title</label> <input #title="ngModel" [(ngModel)]="product.title"
+					name="title" id="title" type="text" class="form-control" required>
+				<!-- Validation Errors -->
+				<div class="alert alert-danger"
+					*ngIf="title.touched && title.invalid">Title is required.</div>
+			</div>
+			<!-- Title Field End -->
+
+			<!-- Price Field Begin -->
+			<div class="form-group">
+				<label for="price">Price</label>
+
+				<!-- Bootstrap add on for $ on input field. -->
+				<div class="input-group">
+					<span class="input-group-addon">$</span> <input #price="ngModel"
+						[(ngModel)]="product.price" name="price" id="price" type="number" class="form-control"
+						required [min]="0">
+				</div>
+				<!-- Validation Errors -->
+				<div class="alert alert-danger"
+					*ngIf="price.touched && price.invalid">
+					<div *ngIf="price.errors.required">Price is required.</div>
+					<div *ngIf="price.errors.min">Price should be 0 or higher.</div>
+				</div>
+			</div>
+			<!-- Price Field End -->
+
+			<!-- Category Field Begin -->
+			<div class="form-group">
+				<label for="category">Category</label> <select #category="ngModel"
+					[(ngModel)]="product.category" name="category" id="category" class="form-control" required>
+					<option value=""></option>
+					<option *ngFor="let c of categories$ | async" [value]="c.$key">
+						{{ c.name }}</option>
+				</select>
+				<!-- Validation Errors -->
+				<div class="alert alert-danger"
+					*ngIf="category.touched && category.invalid">Category is
+					required.</div>
+
+
+			</div>
+			<!-- Category Field End -->
+
+			<!-- ImageURL Field Begin -->
+			<div class="form-group">
+				<label for="imageURL">Image URL</label> <input #imageURL="ngModel"
+					[(ngModel)]="product.imageURL" name="imageURL" id="imageURL" type="text"
+					class="form-control" required url>
+				<!-- Validation Errors -->
+				<div class="alert alert-danger"
+					*ngIf="imageURL.touched && imageURL.invalid">
+					<div *ngIf="imageURL.errors.required">ImageURL is required.</div>
+					<div *ngIf="imageURL.errors.url">ImageURL is not a valid URL.</div>
+
+				</div>
+
+			</div>
+			<!-- ImageURL Field End -->
+
+
+			<!-- By default the buttons that we put in angular form submit the form.Default type is submit -->
+			<!-- Make the delete button a button type instead of submit so the form is not submitted -->
+			<button class="btn btn-primary">Save</button>
+			<button type="button" (click)="delete()"class="btn btn-danger">Delete</button>
+
+		</form>
+	</div>
+ 
+  <!-- Right partition of the page holds bootstrap card -->
+  <div class="col-md-6">
+		<div class="card" style="width: 20rem;">
+			<img class="card-img-top" [src]="product.imageURL"  *ngIf="product.imageURL">
+			<div class="card-block">
+				<h4 class="card-title">{{product.title}}</h4>
+				<p class="card-text">{{product.price | currency:'USD':true }}</p>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+

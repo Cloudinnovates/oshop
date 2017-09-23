@@ -1,5 +1,4 @@
 import { environment } from '../environments/environment';
-import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,7 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-/*Application Public Components */
+/*Application  Components */
 import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -18,19 +17,31 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { LoginComponent } from './login/login.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 /*Application Admin Components*/
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+
+/** Services */
 import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
+import { AdminAuthGuardService } from './admin-auth-guard.service';
 
 /* Router */
 import { RouterModule } from '@angular/router';
 
 /* Ng bootstrap module for dropdown click on nav bar */
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+/* For Bootstrap forms */
+import { FormsModule } from '@angular/forms';
+
+/* Custom Validation for Form Fields */
+import { CustomFormsModule} from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -44,7 +55,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +64,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
+    FormsModule,
+    CustomFormsModule,
     RouterModule.forRoot([
      { path: '' , component: HomeComponent   },
      { path: 'products' , component: ProductsComponent   },
@@ -60,8 +74,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
      { path: 'my/orders' , component: MyOrdersComponent , canActivate: [AuthGuardService]  },
      { path: 'check-out' , component: CheckOutComponent , canActivate: [AuthGuardService]  },
      { path: 'order-success' , component: OrderSuccessComponent , canActivate: [AuthGuardService]  },
-     { path: 'admin/products' , component: AdminProductsComponent ,
-       canActivate: [AuthGuardService, AdminAuthGuardService]  }, // first make sure user is logged in and then make sure user is admin.
+     { path: 'admin/products/new' , component: ProductFormComponent , canActivate: [AuthGuardService, AdminAuthGuardService] },
+     { path: 'admin/products/:id' , component: ProductFormComponent , canActivate: [AuthGuardService, AdminAuthGuardService] },
+     { path: 'admin/products' , component: AdminProductsComponent ,   canActivate: [AuthGuardService, AdminAuthGuardService]  },
      { path: 'admin/orders' , component: AdminOrdersComponent , canActivate: [AuthGuardService, AdminAuthGuardService]   }
 
     ])
@@ -71,7 +86,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AuthService,
     AuthGuardService,
     UserService,
-    AdminAuthGuardService
+    AdminAuthGuardService,
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

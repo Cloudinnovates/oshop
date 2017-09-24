@@ -55,21 +55,21 @@
 			</div>
 			<!-- Category Field End -->
 
-			<!-- ImageURL Field Begin -->
+			<!-- imageUrl Field Begin -->
 			<div class="form-group">
-				<label for="imageURL">Image URL</label> <input #imageURL="ngModel"
-					[(ngModel)]="product.imageURL" name="imageURL" id="imageURL" type="text"
+				<label for="imageUrl">Image URL</label> <input #imageUrl="ngModel"
+					[(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text"
 					class="form-control" required url>
 				<!-- Validation Errors -->
 				<div class="alert alert-danger"
-					*ngIf="imageURL.touched && imageURL.invalid">
-					<div *ngIf="imageURL.errors.required">ImageURL is required.</div>
-					<div *ngIf="imageURL.errors.url">ImageURL is not a valid URL.</div>
+					*ngIf="imageUrl.touched && imageUrl.invalid">
+					<div *ngIf="imageUrl.errors.required">imageUrl is required.</div>
+					<div *ngIf="imageUrl.errors.url">imageUrl is not a valid URL.</div>
 
 				</div>
 
 			</div>
-			<!-- ImageURL Field End -->
+			<!-- imageUrl Field End -->
 
 
 			<!-- By default the buttons that we put in angular form submit the form.Default type is submit -->
@@ -82,8 +82,8 @@
  
   <!-- Right partition of the page holds bootstrap card -->
   <div class="col-md-6">
-		<div class="card" style="width: 20rem;">
-			<img class="card-img-top" [src]="product.imageURL"  *ngIf="product.imageURL">
+		<div *ngIf="product.title" class="card" style="width: 20rem;">
+			<img class="card-img-top" [src]="product.imageUrl"  *ngIf="product.imageUrl">
 			<div class="card-block">
 				<h4 class="card-title">{{product.title}}</h4>
 				<p class="card-text">{{product.price | currency:'USD':true }}</p>

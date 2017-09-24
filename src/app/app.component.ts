@@ -18,7 +18,7 @@ export class AppComponent {
 
         // Redirecting after logging IN to where user came from or
         // home page.
-          if ( user) {
+          if ( !user){ return; }
 
             // when user logs in store them in the database.
             // TODO :Future add Registration form and save the user as part of the
@@ -29,8 +29,10 @@ export class AppComponent {
 
             // every time user logs in or logs out
             let returnUrl = localStorage.getItem('returnUrl');
+            if (!returnUrl ) { return; }
+
+            localStorage.removeItem('returnUrl');
             router.navigateByUrl(returnUrl);
-        }
 
       });
   }

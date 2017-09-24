@@ -43,6 +43,9 @@ import { FormsModule } from '@angular/forms';
 /* Custom Validation for Form Fields */
 import { CustomFormsModule} from 'ng2-validation';
 
+/* Data Table Module */
+import { DataTableModule } from 'angular-4-data-table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +69,7 @@ import { CustomFormsModule} from 'ng2-validation';
     NgbModule.forRoot(),
     FormsModule,
     CustomFormsModule,
+    DataTableModule,
     RouterModule.forRoot([
      { path: '' , component: HomeComponent   },
      { path: 'products' , component: ProductsComponent   },

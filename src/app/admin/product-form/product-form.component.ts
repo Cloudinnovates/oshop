@@ -22,7 +22,7 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute, // used to read route parameters.
     private categoryService: CategoryService,
     private productService: ProductService) {
-       this.categories$ = categoryService.getCategories();
+       this.categories$ = categoryService.getAll();
 
 
        this.id =  this.route.snapshot.paramMap.get('id');

@@ -1,3 +1,55 @@
-<p>
-  products works!
-</p>
+<!-- Partition page into 2 columns -->
+
+<div class="row">
+
+	<!-- Categories Column Begin -->
+	<div class="col-3">
+		<div class="list-group" >
+		    <a 
+		     class="list-group-item list-group-item-action"
+		     [class.active]="!category"
+		     routerLink="/"
+		     >All Categories</a>
+			<a *ngFor="let c of categories$ | async" 
+			    routerLink="/"
+			    [queryParams]="{category: c.$key}"
+			    class="list-group-item list-group-item-action"
+			    [class.active]="category === c.$key">
+				{{c.name}}
+		    </a>
+		</div>
+		
+	</div>
+	<!-- Categories Column End -->
+
+	<!-- Products Column End -->
+	<div class="col">
+		<!-- Bootstrap Card for Product -->
+
+		<div class="row">
+			<ng-container *ngFor="let p of filteredProducts; let i = index">
+			<div class="col">
+				<!--  Bootstrap card -->
+				<div class="card" style="width: 15rem;">
+					<img class="card-img-top" src="{{p.imageUrl}}" alt="Card image cap">
+					<div class="card-block">
+						<h4 class="card-title">{{p.title}}</h4>
+						<p class="card-text">{{p.price | currency:'USD':true}}</p>
+						<a href="#" class="btn btn-primary">Add to Cart</a>
+					</div>
+				</div>
+				<!-- End of Bootstrap card -->
+			</div>
+			<!-- Line Break after every 2 products -->
+			<div *ngIf="(i+1)%2===0" class="w-100"></div>
+			<!-- Line Break End --> </ng-container>
+		</div>
+		<!-- End of Bootstrap Card -->
+	</div>
+	<!-- Products Column End -->
+
+
+</div>
+<!-- End of Partition. -->
+
+

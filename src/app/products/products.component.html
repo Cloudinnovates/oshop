@@ -16,7 +16,7 @@
 			<ng-container *ngFor="let p of filteredProducts; let i = index">
 			<div class="col">
 				<!--  Bootstrap card -->
-				<product-card [product]="p"></product-card>
+				<product-card [product]="p" [shopping-cart]="cart"></product-card>
 				<!-- End of Bootstrap card -->
 			</div>
 			<!-- Line Break after every 2 products -->

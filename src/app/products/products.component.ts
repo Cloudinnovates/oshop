@@ -1,4 +1,3 @@
-import {CategoryService} from '../category.service';
 import {Product} from '../models/product';
 import {ProductService} from '../product.service';
 import {Component, OnInit} from '@angular/core';
@@ -15,12 +14,11 @@ export class ProductsComponent {
   // initialize arrays.
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  categories$;
   category: string;
 
   constructor(route: ActivatedRoute,
-    productService: ProductService,
-    categoryService: CategoryService) {
+    productService: ProductService
+    ) {
 
     productService
       .getAll()
@@ -51,7 +49,7 @@ export class ProductsComponent {
       });
     });*/
 
-    this.categories$ = categoryService.getAll();
+
 
   }
 

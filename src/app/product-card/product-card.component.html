@@ -7,9 +7,9 @@
 		
 	</div>
 	
-	<div class="card-footer" *ngIf="showActions">
+	<div class="card-footer" *ngIf="showActions && shoppingCart">
 	   <button
-	   *ngIf="getQuantity() === 0; else updateQuantity"
+	   *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
 	   (click)="addToCart()" 
 	   class="btn btn-secondary btn-block">Add to Cart
 	   </button>
@@ -18,23 +18,8 @@
 	   	 <!--  no-gutters removes -ve margins created by bootstrap so
 	   	       the size of the cart is same as the card
 	   	  -->
-	       <div class="row" no-gutters>
-	           <div class="col-2">
-	              <button 
-	              (click)="removeFromCart()"
-	              class="btn btn-secondary btn-block">-</button>
-	           </div>
-	           <div class="col text-center" >
-	             {{getQuantity()}} in cart
-	           </div>
-	           <div class="col-2">
-	              <button 
-	              (click)="addToCart()"
-	              class="btn btn-secondary btn-block">+</button>
-	           </div>
-	           
-	       </div>
-		   
+	      <product-quantity [product]="product" [shopping-cart]="shoppingCart"></product-quantity>
+		 
 	   </ng-template>
 	   
 	</div>

@@ -12,16 +12,9 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
   
-  /**
-   * Creates a new shopping cart
-   */
-  private create(){
-     return this.db.list('/shopping-carts').push({
-       dateCreated: new Date().getTime()
-     });
-  }
+  /////////// PUBLIC METHODS /////////////////////////////
   
-  /**
+   /**
    * Retrieves cart from db
    * async since calls 1 or more
    * async methods.
@@ -32,6 +25,43 @@ export class ShoppingCartService {
        .map(x => new ShoppingCart(x.items));
       
   }
+  
+   /*
+   * Add product to shopping cart.
+   * async since has 1 or more async calls.
+   */
+  async addToCart(product : Product) {
+    this.updateItem(product, 1);
+  }
+  
+  /**
+   * Remove product from cart.
+   * async since has 1 or more async calls.
+   */
+  async removeFromCart(product: Product){
+      this.updateItem(product, -1);
+  }
+  
+  /**
+   * Clears shopping cart
+   */
+  async clearCart(){
+     let cartId = await this.getOrCreateCartId(); 
+     this.db.object('/shopping-carts/' + cartId + '/items').remove();
+  }
+  
+  /////////// PRIVATE METHODS /////////////////////////////
+  
+  /**
+   * Creates a new shopping cart
+   */
+  private create(){
+     return this.db.list('/shopping-carts').push({
+       dateCreated: new Date().getTime()
+     });
+  }
+  
+ 
   
   /**
    * Retrieve Item for 
@@ -55,28 +85,13 @@ export class ShoppingCartService {
     
   }
   
-  /*
-   * Add product to shopping cart.
-   * async since has 1 or more async calls.
-   */
-  async addToCart(product : Product) {
-    this.updateItemQuantity(product, 1);
-  }
-  
-  /**
-   * Remove product from cart.
-   * async since has 1 or more async calls.
-   */
-  async removeFromCart(product: Product){
-      this.updateItemQuantity(product, -1);
-  }
-  
+ 
   /**
    * Update item quantity for product in 
    * shopping cart.
    *  async since has 1 or more async calls.
    */
-  private async updateItemQuantity(product: Product, change: number){
+  private async updateItem(product: Product, change: number){
      let cartId = await this.getOrCreateCartId();
      let item$ = this.getItem(cartId, product.$key);
      

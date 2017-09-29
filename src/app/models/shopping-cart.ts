@@ -4,7 +4,7 @@ import { ShoppingCartItem } from './shopping-cart-item';
 export class ShoppingCart{
   items: ShoppingCartItem[] = [];
   
-  constructor(public itemsMap:{[productId: string]: ShoppingCartItem }) { 
+  constructor(private itemsMap:{[productId: string]: ShoppingCartItem }) { 
     
     this.itemsMap = itemsMap || {} ;
     
@@ -47,7 +47,7 @@ export class ShoppingCart{
   }
   
   /**
-   * Get Quantity of items for
+   *  Get Quantity of items for
    *  product.
    */
    getQuantity(product: Product){

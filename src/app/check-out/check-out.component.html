@@ -1,3 +1,19 @@
-<p>
-  check-out works!
-</p>
+
+<h2>Shipping</h2>
+
+<!-- Divide the page into 2 equal partitions. -->
+<div class="row" *ngIf="cart$ | async as cart">
+
+    <!-- First Partition Begin: Form -->
+	<div class="col-6">
+	   <shipping-form [cart]="cart"></shipping-form>
+	</div>
+	<!-- First Partition End : Form -->
+	
+	<!-- Second Partition Begin : Summary -->
+	<div class="col-6">
+	   <shopping-cart-summary [cart]="cart"></shopping-cart-summary>
+	</div>
+	<!-- Second Partition End : Summary -->
+</div>
+

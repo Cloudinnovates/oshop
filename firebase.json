@@ -1,6 +1,10 @@
 {
-  "hosting":{
-      "public": "dist"
-   }
+  "hosting": {
+    "public": "./dist",
+    "rewrites": [ {
+    "source": "/login",
+    "destination": "/index.html"
+    } ]
+  }
   
 }

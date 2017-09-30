@@ -1,6 +1,6 @@
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 /*FireBase*/
 import { AngularFireModule } from 'angularfire2';
@@ -108,6 +108,7 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
     ShoppingCartService,
     OrderService
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
